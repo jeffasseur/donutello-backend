@@ -7,4 +7,7 @@
 - mongodb
 - live parts with Primus (web sockets)
 
+## commands
+Nodemon: npm run nodemon => runs on localhost:3000
+
 ‼️ commits
