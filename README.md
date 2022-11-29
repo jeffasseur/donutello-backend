@@ -11,3 +11,7 @@
 Nodemon: npm run nodemon => runs on localhost:3000
 
 ‼️ commits
+
+## startup project
+1. npm i to install all dependencies
+2. change mongoose password in app.js line 14
