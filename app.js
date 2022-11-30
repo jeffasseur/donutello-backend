@@ -11,7 +11,7 @@ const donutsRouter = require('./routes/api/v1/Donuts');
 const app = express();
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://DonutelloBackend:<password>@donutellobackend.fwcd6xb.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://DonutelloBackend2022:<password>@donutellobackend.fwcd6xb.mongodb.net/?retryWrites=true&w=majority');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
