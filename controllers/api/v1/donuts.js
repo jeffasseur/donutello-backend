@@ -1,6 +1,24 @@
+const Donut = require('../models/Donut');
+
 // controllers for the donuts api
 getAllDonuts = (req, res) => {
     res.send('GET root donut route 🍩');
+    Donut.find({}, (err, donuts) => {
+        if (err) { 
+            console.log(err)
+            let response = {
+                status: "error",
+                message: "No donuts found"
+            }
+            res.json(response);
+        }
+        let response = {
+            status: "success",
+            message: "GETTING all donuts",
+            data: donuts
+        }
+        res.json(response);
+    });
 }
 
 getDonutById = (req, res) => {
