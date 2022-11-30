@@ -21,7 +21,24 @@ getAllDonuts = (req, res) => {
 }
 
 getDonutById = (req, res) => {
-    res.send(`GET donut route with id of ${req.params.id} 🍩`);
+    //get donut by id
+    let donutId = req.params.id;
+    Donut.findById(donutId, (err, donut) => {
+        if (err) {
+            console.log(err)
+            let response = {
+                status: "error",
+                message: "No donut found"
+            }
+            res.json(response); 
+    }
+        let response = {
+            status: "success",
+            message: "GETTING donut by id",
+            data: donut
+        }
+        res.json(response);
+        });
 }
 
 createDonut = (req, res) => {
