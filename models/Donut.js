@@ -23,7 +23,7 @@ const DonutSchema = new mongoose.Schema({
     client: {type: String},
     amount: {type: Number, default: 0},
     description: {type: String},
-
+    status: {type: String, default: "Wachten tot opstart ..."},
 });
 
 const Donut = mongoose.model('Donut', DonutSchema);
