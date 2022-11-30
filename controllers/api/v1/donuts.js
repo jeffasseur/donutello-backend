@@ -113,7 +113,29 @@ createDonut = (req, res) => {
     });
 }
 
+updateDonut = (req, res) => {
+    //update donut by id
 
+    Donut.findByIdAndUpdate(
+        {_id : req.params.id},
+        {status : req.body.status},
+        {new: true},
+        (err, donut) => {
+        if (err) {
+            console.log(err)
+            let response = {
+                status: "error",
+                message: "Deze id bevat geen donut."
+            }
+            res.json(response);
+        }
+        let response = {
+            status: "success",
+            message: "Donut status is aangepast.",
+        }
+        res.json(response);
+    });
+}
 
 deleteDonut = (req, res) => {
     //delete donut by id
