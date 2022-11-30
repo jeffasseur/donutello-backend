@@ -10,6 +10,8 @@ var donutsController = require('./../../../controllers/api/v1/Donuts');
 
     router.get('/:id', donutsController.getDonutById);
 
+    router.get('/client/:client', donutsController.getOrderByClient);
+
 /* POST ROUTES */
     router.post('/', donutsController.createDonut);
 

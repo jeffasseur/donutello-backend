@@ -41,6 +41,27 @@ getDonutById = (req, res) => {
         });
 }
 
+getOrderByClient = (req, res) => {
+    //get order by client
+    let client = req.params.client;
+    Donut.find({client: client}, (err, donut) => {
+        if (err) {
+            console.log(err)
+            let response = {
+                status: "error",
+                message: "No orders found by this client"
+            }
+            res.json(response);
+        }
+        let response = {
+            status: "success",
+            message: "GETTING orders by client",
+            data: donut
+        }
+        res.json(response);
+    });
+}
+
 createDonut = (req, res) => {
     //create donut
     let name = req.body.name;
@@ -121,5 +142,6 @@ module.exports = {
     getDonutById,
     createDonut,
     updateDonut,
-    deleteDonut
+    deleteDonut,
+    getOrderByClient
 }
