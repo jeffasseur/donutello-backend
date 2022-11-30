@@ -64,6 +64,7 @@ getOrderByClient = (req, res) => {
 
 createDonut = (req, res) => {
     //create donut
+    /*
     let name = req.body.name;
     let dough = req.body.dough;
     let glase = req.body.glase;
@@ -76,6 +77,7 @@ createDonut = (req, res) => {
     let client = req.body.client;
     let amount = req.body.amount;
     let description = req.body.description;
+    let status = req.body.status;
 
     let donut = new Donut({
         name: name,
@@ -90,30 +92,28 @@ createDonut = (req, res) => {
         type: type,
         client: client,
         amount: amount,
-        description: description
-    });
+        description: description,
+        status: status
+    }); */
 
-    donut.save((err, donut) => {
+    Donut.create(req.body , (err, donut) => {
         if (err) {
             console.log(err)
             let response = {
                 status: "error",
-                message: "Error creating donut"
+                message: "Error creating donut",
             }
-            res.json(response);
+            res.status(404).json(response);
         }
-        let response = {
+        res.status(200).json({
             status: "success",
             message: "Donut created",
             data: donut
-        }
-        res.json(response);
+        });
     });
 }
 
-updateDonut = (req, res) => {
-    res.send('UPDATE donut with id: ' + req.params.id + '🍩');
-}
+
 
 deleteDonut = (req, res) => {
     //delete donut by id
