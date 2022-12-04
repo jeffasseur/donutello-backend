@@ -8,6 +8,6 @@ router.get('/', userController.getAll);
 router.get('/username/username', userController.getByUsername);
 
 // POST route for login
-router.post('/login', userController.login);
+router.post('/signup', userController.signup);
 
 module.exports = router;
