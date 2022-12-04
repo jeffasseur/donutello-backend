@@ -5,6 +5,7 @@ const userController = require('../controllers/api/v1/users');
 
 /* GET users listing. */
 router.get('/', userController.getAll);
+router.get('/username/username', userController.getByUsername);
 
 // POST route for login
 router.post('/login', userController.login);
