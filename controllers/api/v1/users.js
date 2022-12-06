@@ -7,6 +7,10 @@ const getAll = (req, res) => {
     res.send('GET all users');
 }
 
+const getByUsername = (req, res) => {
+    res.send('GET all users');
+}
+
 const signup = async (req, res) => {
     let user = new User();
 
@@ -23,6 +27,8 @@ const signup = async (req, res) => {
                 status: "success",
                 data:{
                     "token": token,
+                    "username": user.username,
+                    "password": user.password,
                 }
             });
     }).catch(error => {    
@@ -38,5 +44,6 @@ const signup = async (req, res) => {
 // export the functions
 module.exports = {
     getAll,
-    signup
+    signup,
+    getByUsername
 }
