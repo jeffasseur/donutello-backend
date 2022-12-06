@@ -1,3 +1,8 @@
+const User = require('../../../models/User');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+
+
 const getAll = (req, res) => {
     res.send('GET all users');
 }
