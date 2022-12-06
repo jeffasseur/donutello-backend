@@ -5,6 +5,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 
+var cors = require('cors');
+
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const donutsRouter = require('./routes/api/v1/Donuts');
@@ -12,12 +15,13 @@ const donutsRouter = require('./routes/api/v1/Donuts');
 const app = express();
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://DonutelloBackend2022:<passport>@donutellobackend.fwcd6xb.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://DonutelloBackend2022:DonutelloBackend2022@donutellobackend.fwcd6xb.mongodb.net/?retryWrites=true&w=majority');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
