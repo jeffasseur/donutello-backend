@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // import controller
-var donutsController = require('./../../../controllers/api/v1/Donuts');
+var donutsController = require('./../../../controllers/api/v1/donuts.js');
 
 /* GET ROUTES */
 /* GET routes for Donuts. */
