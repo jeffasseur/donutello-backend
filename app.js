@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
+const rateLimit = require("express-rate-limit");
 
 var cors = require('cors');
 
@@ -17,10 +18,17 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://DonutelloBackend2022:DonutelloBackend2022@donutellobackend.fwcd6xb.mongodb.net/?retryWrites=true&w=majority');
 
+const apiRequestLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10,
+  message: "Je hebt te veel requests uitgevoerd. Probeer het over 15 minuten opnieuw."
+})
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(apiRequestLimiter);
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
