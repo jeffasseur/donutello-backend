@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const getIdFromJWT = (req) => {
     if (req.headers.authorization.startsWith("Bearer ")) {
         token = req.headers.authorization.substring(7, req.headers.authorization.length);
-        console.log("true");
+        console.log("true")
     } else {
         return false;
     }
@@ -15,22 +15,33 @@ const getIdFromJWT = (req) => {
 
 // controllers for the donuts api
 getAllDonuts = (req, res) => {
-    Donut.find({}, (err, donuts) => {
-        if (err) { 
-            console.log(err)
+    const admin = getIdFromJWT(req);
+    console.log(admin);
+    if (!admin) {
+        return res.json({
+            "status": "error",
+            "message": "You need to be logged in to see the donuts"
+        });
+    }else{
+        console.log("not working")
+        Donut.find({}, (err, donuts) => {
+            if (err) { 
+                console.log(err)
+                let response = {
+                    status: "error",
+                    message: "No donuts found"
+                }
+                res.json(response);
+            }
             let response = {
-                status: "error",
-                message: "No donuts found"
+                status: "success",
+                message: "GETTING all donuts",
+                data: donuts
             }
             res.json(response);
-        }
-        let response = {
-            status: "success",
-            message: "GETTING all donuts",
-            data: donuts
-        }
-        res.json(response);
-    });
+        });
+    
+    }
 }
 
 getDonutById = (req, res) => {
