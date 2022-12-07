@@ -57,7 +57,7 @@ const login = async (req, res) => {
 
         if(validatePassword) {
             let token = jwt.sign({
-                //uid: user._id, 
+                uid: user._id, 
                 username: user.username,
             }, "SecretWord");
         
