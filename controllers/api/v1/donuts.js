@@ -1,4 +1,17 @@
 const Donut = require('../../../models/Donut.js');
+const jwt = require('jsonwebtoken');
+
+const getIdFromJWT = (req) => {
+    if (req.headers.authorization.startsWith("Bearer ")) {
+        token = req.headers.authorization.substring(7, req.headers.authorization.length);
+        console.log("true");
+    } else {
+        return false;
+    }
+
+    const decoded = jwt.verify(token, "SecretWord");//config.get('jwt.secret'));
+    return decoded.uid;
+}
 
 // controllers for the donuts api
 getAllDonuts = (req, res) => {
@@ -160,6 +173,7 @@ deleteDonut = (req, res) => {
 }
 
 module.exports = {
+    getIdFromJWT,
     getAllDonuts,
     getDonutById,
     createDonut,
