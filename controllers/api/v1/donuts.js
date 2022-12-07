@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const getIdFromJWT = (req) => {
     if (req.headers.authorization.startsWith("Bearer ")) {
         token = req.headers.authorization.substring(7, req.headers.authorization.length);
-        console.log("true")
     } else {
         return false;
     }
@@ -16,14 +15,12 @@ const getIdFromJWT = (req) => {
 // controllers for the donuts api
 getAllDonuts = (req, res) => {
     const admin = getIdFromJWT(req);
-    console.log(admin);
     if (!admin) {
         return res.json({
             "status": "error",
             "message": "You need to be logged in to see the donuts"
         });
     }else{
-        console.log("not working")
         Donut.find({}, (err, donuts) => {
             if (err) { 
                 console.log(err)
@@ -45,45 +42,63 @@ getAllDonuts = (req, res) => {
 }
 
 getDonutById = (req, res) => {
-    //get donut by id
-    let donutId = req.params.id;
-    Donut.findById(donutId, (err, donut) => {
-        if (err) {
-            console.log(err)
-            let response = {
-                status: "error",
-                message: "No donut found"
-            }
-            res.json(response); 
-    }
-        let response = {
-            status: "success",
-            message: "GETTING donut by id",
-            data: donut
-        }
-        res.json(response);
+    //check if token
+    const admin = getIdFromJWT(req);
+    if (!admin) {
+        return res.json({
+            "status": "error",
+            "message": "You need to be logged in to see the donuts"
         });
+    }else{
+        //get donut by id
+        let donutId = req.params.id;
+        Donut.findById(donutId, (err, donut) => {
+            if (err) {
+                console.log(err)
+                let response = {
+                    status: "error",
+                    message: "No donut found"
+                }
+                res.json(response); 
+        }
+            let response = {
+                status: "success",
+                message: "GETTING donut by id",
+                data: donut
+            }
+            res.json(response);
+            });
+    }
 }
 
 getOrderByClient = (req, res) => {
-    //get order by client
-    let client = req.params.client;
-    Donut.find({client: client}, (err, donut) => {
-        if (err) {
-            console.log(err)
+    //check if token
+    const admin = getIdFromJWT(req);
+    if (!admin) {
+        return res.json({
+            "status": "error",
+            "message": "You need to be logged in to see the donuts"
+        });
+    }else{
+        //get order by client
+        let client = req.params.client;
+        Donut.find({client: client}, (err, donut) => {
+            if (err) {
+                console.log(err)
+                let response = {
+                    status: "error",
+                    message: "No orders found by this client"
+                }
+                res.json(response);
+            }
             let response = {
-                status: "error",
-                message: "No orders found by this client"
+                status: "success",
+                message: "GETTING orders by client",
+                data: donut
             }
             res.json(response);
-        }
-        let response = {
-            status: "success",
-            message: "GETTING orders by client",
-            data: donut
-        }
-        res.json(response);
-    });
+        });
+    }
 }
 
 createDonut = (req, res) => {
@@ -162,25 +177,33 @@ updateDonut = (req, res) => {
 }
 
 deleteDonut = (req, res) => {
-    //delete donut by id
-    let donutId = req.params.id;
-    Donut.findByIdAndRemove(donutId, (err, donut) => {
-        if (err) {
-            console.log(err)
+    //check if token
+    const admin = getIdFromJWT(req);
+    if (!admin) {
+        return res.json({
+            "status": "error",
+            "message": "You need to be logged in to see the donuts"
+        });
+    }else{
+        //delete donut by id
+        let donutId = req.params.id;
+        Donut.findByIdAndRemove(donutId, (err, donut) => {
+            if (err) {
+                console.log(err)
+                let response = {
+                    status: "error",
+                    message: "Error deleting donut"
+                }
+                res.json(response);
+            }
             let response = {
-                status: "error",
-                message: "Error deleting donut"
+                status: "success",
+                message: "Donut deleted",
+                data: donut
             }
             res.json(response);
-        }
-        let response = {
-            status: "success",
-            message: "Donut deleted",
-            data: donut
-        }
-        res.json(response);
-    });
-
+        });
+    }
 }
 
 module.exports = {
