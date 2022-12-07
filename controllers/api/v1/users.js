@@ -8,8 +8,8 @@ const getAll = (req, res) => {
     res.send('GET all users');
 }
 
-const getByUsername = (req, res) => {
-    res.send('GET all users');
+const getUserByUsername = (req, res) => {
+    res.send('GET user by username');   
 }
 
 const signup = async (req, res) => {
@@ -55,9 +55,6 @@ const login = async (req, res) => {
         //check if user password and hashed password are the same
         const validatePassword = await bcrypt.compare(body.password, user.password);
 
-        console.log(body.password);
-        console.log(user.password);
-        console.log(validatePassword);
         if(validatePassword) {
             let token = jwt.sign({
                 //uid: user._id, 
@@ -85,10 +82,59 @@ const login = async (req, res) => {
     }
 }
 
+const changePassword = async (req, res) => {
+    const body = req.body;
+    const user = await User.findOne({username: body.username});
+    if(user) {
+        //check if user password and hashed password are the same
+        const validatePassword = await bcrypt.compare(body.passwordOld, user.password);
+
+        console.log(body.passwordOld);
+        console.log(user.password);
+        console.log(validatePassword);
+        if(validatePassword) {
+            if(body.passwordNew1 === body.passwordNew2){
+                console.log("user._id: " + user._id);
+                User.findByIdAndUpdate(
+                    {_id: user._id},
+                    {password: body.passwordNew1},
+                    {new: true},
+                    (err, user) => {
+                        if(err){
+                            res.json("Error udating password");
+                        }else{
+                            res.json("User is updated");
+                        }
+                });
+            }
+            else{
+                res.json({
+                    status: "error",
+                    message: "Passwords are not the same"
+                });
+            }
+        } else {
+
+            res.json({
+                status: "error",
+                message: "Password is incorrect"
+            });
+        }
+    } else {
+
+        res.json({
+            status: "error",
+            message: "No user found with this email"
+        });
+    }
+
+}
+
 // export the functions
 module.exports = {
     getAll,
     signup,
-    getByUsername,
-    login
+    getUserByUsername,
+    login,
+    changePassword
 }
