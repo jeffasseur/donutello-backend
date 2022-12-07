@@ -30,7 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api/v1/donuts', passport.authenticate('jwt', {session: false}), donutsRouter);
+//app.use('/api/v1/donuts', passport.authenticate('jwt', {session: false}), donutsRouter);
+app.use('/api/v1/donuts', donutsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
