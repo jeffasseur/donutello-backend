@@ -89,6 +89,13 @@ const changePassword = async (req, res) => {
         //check if user password and hashed password are the same
         const validatePassword = await bcrypt.compare(body.passwordOld, user.password);
 
+        const new1Password = body.passwordNew1;
+        //generate salt to hash password
+        const salt = await bcrypt.genSalt(10);
+
+        //set user password to hashed password
+        newPassword = await bcrypt.hash(new1Password, salt);   
+
         console.log(body.passwordOld);
         console.log(user.password);
         console.log(validatePassword);
@@ -97,7 +104,7 @@ const changePassword = async (req, res) => {
                 console.log("user._id: " + user._id);
                 User.findByIdAndUpdate(
                     {_id: user._id},
-                    {password: body.passwordNew1},
+                    {password: newPassword},
                     {new: true},
                     (err, user) => {
                         if(err){
