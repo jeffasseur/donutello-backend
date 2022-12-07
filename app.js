@@ -20,7 +20,7 @@ mongoose.connect('mongodb+srv://DonutelloBackend2022:DonutelloBackend2022@donute
 
 const apiRequestLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10,
+  max: 100,
   message: "Je hebt te veel requests uitgevoerd. Probeer het over 15 minuten opnieuw."
 })
 
