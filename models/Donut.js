@@ -5,25 +5,24 @@ const DonutSchema = new mongoose.Schema({
     id: Number,
 
     //donut configuration
-    name: {type: String, required: true},
-    dough: {type: String, required: true},
-    glase: {type: String},
-    sprinkles: {type: String, required: true},
-    logo: String,
-    dateOfCreation: {type: Date, default: Date.now},
-    email: {type: String, required: true},
+    donut:{
+        dough: {type: String, default: "Normaal"},
+        icing: {type: String, default:"Suiker"},
+        topping: {type: String, required: true},
+        logo: {type: String},
+        dateOfCreation: {type: Date, default: Date.now},    
+    },
+   
+    client:{
+        email: {type: String, required: true},
+        name: {type: String, required: true},
+    },
 
-    //check if order or game
-    order: {type: Boolean, required: true, default: false},
-
-    //check if it is custom or random donut
-    type: {type: Boolean, required: true},
-
-    //donuts for clients
-    client: {type: String},
-    amount: {type: Number, default: 0},
-    description: {type: String},
-    status: {type: String, default: "Wachten tot opstart ..."},
+    order:{
+        amount: {type: Number, default: 0},
+        description: {type: String},
+        status: {type: String, default: "Wachten tot opstart ..."},    
+    }
 });
 
 const Donut = mongoose.model('Donut', DonutSchema);
