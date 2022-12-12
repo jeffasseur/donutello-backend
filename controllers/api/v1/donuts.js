@@ -171,6 +171,7 @@ updateDonut = (req, res) => {
         let response = {
             status: "success",
             message: "Donut status is aangepast.",
+            data: donut
         }
         res.json(response);
     });
