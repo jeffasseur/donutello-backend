@@ -153,11 +153,7 @@ createDonut = (req, res) => {
 }
 
 updateDonut = (req, res) => {
-    //update donut by id
-
-    Donut.findByIdAndUpdate(
-        {_id : req.params.id},
-        {status : req.body.status},
+    Donut.findByIdAndUpdate(req.params.id, {status: req.body.status},
         {new: true},
         (err, donut) => {
         if (err) {
@@ -168,6 +164,7 @@ updateDonut = (req, res) => {
             }
             res.json(response);
         }
+        console.log(req.body);
         let response = {
             status: "success",
             message: "Donut status is aangepast.",
