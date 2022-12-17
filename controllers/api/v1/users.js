@@ -4,14 +4,6 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 
-const getAll = (req, res) => {
-    res.send('GET all users');
-}
-
-const getUserByUsername = (req, res) => {
-    res.send('GET user by username');   
-}
-
 const signup = async (req, res) => {
     let user = new User();
 
@@ -41,7 +33,7 @@ const signup = async (req, res) => {
     }).catch(error => {    
             res.json({
                 status: "error",
-                message: "Could not signup, check if all input fields are filled in"
+                message: "Er liep iets mis bij het maken van het account, probeer het opnieuw."
             });
 
     })
@@ -70,14 +62,14 @@ const login = async (req, res) => {
 
             res.json({
                 status: "error",
-                message: "Password is incorrect"
+                message: "Wachtwoord is niet correct."
             });
         }
     } else {
 
         res.json({
             status: "error",
-            message: "No user found with this email"
+            message: "Geen gebruiker gevonden onder dit mailadres."
         });
     }
 }
@@ -108,30 +100,30 @@ const changePassword = async (req, res) => {
                     {new: true},
                     (err, user) => {
                         if(err){
-                            res.json("Error udating password");
+                            res.json("Er is iets mis gelopen bij het updaten van het wachtwoord.");
                         }else{
-                            res.json("User is updated");
+                            res.json("Het wachtwoord is succesvol gewijzigd.");
                         }
                 });
             }
             else{
                 res.json({
                     status: "error",
-                    message: "Passwords are not the same"
+                    message: "De twee nieuwe wachtwoorden zijn niet hetzelfde."
                 });
             }
         } else {
 
             res.json({
                 status: "error",
-                message: "Password is incorrect"
+                message: "Het originele wachtwoord is niet correct."
             });
         }
     } else {
 
         res.json({
             status: "error",
-            message: "No user found with this email"
+            message: "Er is geen account gevonden met dit mailadres."
         });
     }
 
@@ -139,9 +131,7 @@ const changePassword = async (req, res) => {
 
 // export the functions
 module.exports = {
-    getAll,
     signup,
-    getUserByUsername,
     login,
     changePassword
 }

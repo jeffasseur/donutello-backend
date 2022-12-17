@@ -18,7 +18,7 @@ getAllDonuts = (req, res) => {
     if (!admin) {
         return res.json({
             "status": "error",
-            "message": "You need to be logged in to see the donuts"
+            "message": "Je moet ingelogd zijn om bestellingen te kunnen zien."
         });
     }else{
         Donut.find({}, (err, donuts) => {
@@ -26,13 +26,13 @@ getAllDonuts = (req, res) => {
                 console.log(err)
                 let response = {
                     status: "error",
-                    message: "No donuts found"
+                    message: "Er zijn geen bestellingen gevonden."
                 }
                 res.json(response);
             }
             let response = {
                 status: "success",
-                message: "GETTING all donuts",
+                message: "Al de bestellingen ophalen.",
                 data: donuts
             }
             res.json(response);
@@ -47,7 +47,7 @@ getDonutById = (req, res) => {
     if (!admin) {
         return res.json({
             "status": "error",
-            "message": "You need to be logged in to see the donuts"
+            "message": "Je moet ingelogd zijn om bestellingen te kunnen zien."
         });
     }else{
         //get donut by id
@@ -57,13 +57,13 @@ getDonutById = (req, res) => {
                 console.log(err)
                 let response = {
                     status: "error",
-                    message: "No donut found"
+                    message: "Geen bestellingen gevonden met deze id."
                 }
                 res.json(response); 
         }
             let response = {
                 status: "success",
-                message: "GETTING donut by id",
+                message: "De bestelling ophalen.",
                 data: donut
             }
             res.json(response);
@@ -77,7 +77,7 @@ getOrderByClient = (req, res) => {
     if (!admin) {
         return res.json({
             "status": "error",
-            "message": "You need to be logged in to see the donuts"
+            "message": "Je moet ingelogd zijn om bestellingen te kunnen zien."
         });
     }else{
         //get order by client
@@ -87,13 +87,13 @@ getOrderByClient = (req, res) => {
                 console.log(err)
                 let response = {
                     status: "error",
-                    message: "No orders found by this client"
+                    message: "Geen bestellingen gevonden van deze klant."
                 }
                 res.json(response);
             }
             let response = {
                 status: "success",
-                message: "GETTING orders by client",
+                message: "Al de bestellingen van deze klant ophalen.",
                 data: donut
             }
             res.json(response);
@@ -140,13 +140,13 @@ createDonut = (req, res) => {
             console.log(err)
             let response = {
                 status: "error",
-                message: "Error creating donut",
+                message: "Er liep iets mis bij het opslaan van deze bestelling.",
             }
             res.status(404).json(response);
         }
         res.status(200).json({
             status: "success",
-            message: "Donut created",
+            message: "Donut is opgeslagen.",
             data: donut
         });
     });
@@ -164,13 +164,13 @@ updateDonut = (req, res) => {
             console.log(err)
             let response = {
                 status: "error",
-                message: "Deze id bevat geen donut."
+                message: "Deze id bevat geen donut of bestelling."
             }
             res.json(response);
         }
         let response = {
             status: "success",
-            message: "Donut status is aangepast.",
+            message: "De bestelling is aangepast.",
             data: donut
         }
         res.json(response);
@@ -183,7 +183,7 @@ deleteDonut = (req, res) => {
     if (!admin) {
         return res.json({
             "status": "error",
-            "message": "You need to be logged in to see the donuts"
+            "message": "Je moet ingelogd zijn om bestellingen te kunnen verwijderen."
         });
     }else{
         //delete donut by id
@@ -193,13 +193,13 @@ deleteDonut = (req, res) => {
                 console.log(err)
                 let response = {
                     status: "error",
-                    message: "Error deleting donut"
+                    message: "Er liep iets mis bij het verwijderen van de bestelling."
                 }
                 res.json(response);
             }
             let response = {
                 status: "success",
-                message: "Donut deleted",
+                message: "De bestelling is succesvol verwijderd.",
                 data: donut
             }
             res.json(response);
